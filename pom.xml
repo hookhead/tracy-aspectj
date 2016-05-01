@@ -18,9 +18,14 @@
 
     <dependencies>
         <dependency>
+	        <groupId>com.apm4all.tracy</groupId>
+	        <artifactId>Tracy</artifactId>
+	        <version>4.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
