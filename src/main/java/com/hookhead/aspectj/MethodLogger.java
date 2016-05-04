@@ -52,7 +52,6 @@ public class MethodLogger {
         //
         // Get the annotations
         //
-
         boolean traceAll = false;
         String[] parameterNames = profiled.annotations();
         if (parameterNames.length == 1 && parameterNames[0].equals(Constants.ALL_PARAMETERS)) {
@@ -67,7 +66,6 @@ public class MethodLogger {
         //
         // Tracy.before
         //
-
         Tracy.before(qualifiedMethodName);
 
         //
@@ -90,17 +88,18 @@ public class MethodLogger {
             if (includeExceptions.size() == 0 || includeExceptions.contains(t.getClass())) {
                 List<Class> excludeExceptions = new ArrayList<>(Arrays.asList(profiled.exclude()));
                 if (!excludeExceptions.contains(t.getClass())) {
+                    String message = t.getCause().getMessage();
                     switch (profiled.onException()) {
                         case DO_NOTHING:
                             break;
                         case POP:
-                            // FIXME
+                            Tracy.frameError(message);
                             break;
                         case MARK_FRAME:
-                            // FIXME
+                            Tracy.frameErrorWithoutPopping(message);
                             break;
                         case MARK_UP_TO_THE_ROOT_FRAME:
-                            // FIXME
+                            Tracy.outerError(message);
                             break;
                         default:
                             LOGGER.error("Unhandled case in switch " + profiled.onException());
